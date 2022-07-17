@@ -1,0 +1,113 @@
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+class node
+{
+public:
+    int data;
+    node *next;
+
+    node(int x)
+    {
+        data = x;
+        next = NULL;
+    }
+};
+node *insertatstart(node *&head, int x)
+{
+    node *temp = new node(x);
+    temp->next = head;
+    head = temp;
+    return temp;
+}
+void print(node *head)
+{
+    node *temp = head;
+    while (temp != NULL)
+    {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+}
+void insertattend(node *&head, int x)
+{
+    node *temp = new node(x);
+    node *traverse = head;
+    while (traverse->next != NULL)
+    {
+        traverse = traverse->next;
+    }
+    traverse->next = temp;
+}
+void insertatposition(node *&head, int x, int pos)
+{
+
+    int i = 1;
+    node *store;
+    node *temp = head;
+    node *newnode = new node(x);
+
+    while (i < pos - 1)
+    {
+        temp = temp->next;
+        i++;
+    }
+    store = temp->next;
+    temp->next = newnode;
+    newnode->next = store;
+}
+void deleteatstart(node *&head)
+{
+    head = head->next;
+}
+void deleteatend(node *&head)
+{
+    node *s, *t;
+    s = head;
+    t = head->next;
+    while (t->next != NULL)
+    {
+        t = t->next;
+        s = s->next;
+    }
+    s->next = NULL;
+}
+void deleteinmiddle(node *&head, int pos)
+{
+    int i = 1;
+    node *temp = head;
+    while (i < pos - 1)
+    {
+        temp = temp->next;
+        i++;
+    }
+    temp->next = temp->next->next;
+}
+
+void reverse(node *&head)
+{
+    node *prev = NULL;
+    node *current = head;
+    node *pudhe;
+    while (current != NULL)
+    {
+        pudhe = current->next;
+        current->next = prev;
+        prev = current;
+        current = pudhe;
+    }
+    head = prev;
+}
+
+int main()
+{
+    node *head = NULL;
+    insertatstart(head, 40);
+    insertatstart(head, 30);
+    insertatstart(head, 20);
+    insertatstart(head, 10);
+    reverse(head);
+
+    print(head);
+}
